@@ -2,33 +2,35 @@ const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 const questionText = document.querySelector('.question');
 
-// The classic "Runaway No" button logic
-noBtn.addEventListener('mouseover', () => {
-    // Calculate random position within the viewport width/height boundaries
+// Function to move the "No" button to a random position
+function moveNoButton() {
+    // Calculate max available width and height inside the browser window
     const maxX = window.innerWidth - noBtn.offsetWidth - 40;
     const maxY = window.innerHeight - noBtn.offsetHeight - 40;
     
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
+    // Generate random coordinates within boundaries
+    const randomX = Math.floor(Math.random() * Math.max(maxX, 1));
+    const randomY = Math.floor(Math.random() * Math.max(maxY, 1));
     
-    // Teleport the button out of reach
+    // Teleport the button using fixed positioning
     noBtn.style.position = 'fixed';
     noBtn.style.left = `${randomX}px`;
     noBtn.style.top = `${randomY}px`;
-});
-
-// What happens when she finally clicks Yes
-yesBtn.addEventListener('click', () => {
-    questionText.innerHTML = "Yay! I knew it! 💖✨ Let's goooo!";
-    noBtn.style.display = 'none';
-    yesBtn.style.transform = 'scale(1.3)';
-    yesBtn.disabled = true;
-    
-    // (Optional) Call your matrix or heart shower background animations here!
-    startHeartShower(); 
-});
-
-function startHeartShower() {
-    console.log("Matrix & Pinkboard canvases activated dynamically!");
-    // This is where the background scripts from image.png (js/heart.js) kick in!
 }
+
+// 1. If they try to move the mouse cursor over it (Desktop PC)
+noBtn.addEventListener('mouseover', moveNoButton);
+
+// 2. If they manage to tap it quickly or use a touchscreen phone
+noBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Stop any default action
+    moveNoButton();
+});
+
+// What happens when they click Yes!
+yesBtn.addEventListener('click', () => {
+    questionText.innerHTML = "Yay! I knew it! 💖✨";
+    noBtn.style.display = 'none'; // Hide the No button permanently
+    yesBtn.style.transform = 'scale(1.4)';
+    yesBtn.disabled = true;
+});
