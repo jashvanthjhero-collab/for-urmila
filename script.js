@@ -2,51 +2,42 @@ const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 const questionText = document.querySelector('.question');
 
-// Function to safely move the button within viewable boundaries
 function moveNoButton() {
-    // Get button dimensions
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
+    const padding = 25; // Safe padding inside phone screens
 
-    // Define a safe padding from the screen edges (in pixels)
-    const padding = 20;
-
-    // Calculate maximum safe coordinates (restricting to visible screen)
+    // Enforce calculation limits inside the viewport boundaries
     const maxX = window.innerWidth - btnWidth - padding;
     const maxY = window.innerHeight - btnHeight - padding;
 
-    // Generate random coordinates starting at least from the padding offset
-    // Math.max ensures values never drop below the minimum padding bounds
     const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
     const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
 
-    // Clamp coordinates to make absolutely sure it never leaves the screen
+    // Clamp values to secure it never moves off-screen
     const finalX = Math.max(padding, Math.min(randomX, maxX));
     const finalY = Math.max(padding, Math.min(randomY, maxY));
 
-    // Instantly teleport the button using fixed positioning
+    // DYNAMIC TRANSFORMATION: Changes layout type instantly on interaction
     noBtn.style.position = 'fixed';
     noBtn.style.left = `${finalX}px`;
     noBtn.style.top = `${finalY}px`;
 }
 
-/* MOBILE PHONE FIX: 'touchstart' triggers the instant a finger hits the screen, 
-   moving the button before the mobile browser can register a click/tap event. */
+// Triggers immediately when finger hits mobile screen
 noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevents phone zoom/double-tap bugs
+    e.preventDefault();
     moveNoButton();
 });
 
-/* DESKTOP FIX: Moves the button as soon as the mouse cursor hovers near it */
+// Triggers immediately when mouse hovers over desktop screen
 noBtn.addEventListener('mouseover', moveNoButton);
 
-// Final fallback if they somehow bypass the listeners
 noBtn.addEventListener('click', (e) => {
     e.preventDefault();
     moveNoButton();
 });
 
-// What happens when they click Yes!
 yesBtn.addEventListener('click', () => {
     questionText.innerHTML = "Yay! I knew it! 💖✨";
     noBtn.style.display = 'none'; 
