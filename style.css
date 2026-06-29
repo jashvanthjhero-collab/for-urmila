@@ -14,7 +14,6 @@ body {
     overflow: hidden;
 }
 
-/* Background layers mimicking the image canvas logic */
 canvas {
     position: absolute;
     top: 0;
@@ -22,7 +21,7 @@ canvas {
     width: 100%;
     height: 100%;
     z-index: 1;
-    pointer-events: none; /* Allows clicking through the canvas to buttons */
+    pointer-events: none; 
 }
 
 .container {
@@ -74,8 +73,10 @@ button {
     box-shadow: 0 0 15px #ff69b4;
 }
 
+/* CRUCIAL: Absolute positioning lets JavaScript move this button anywhere */
 #noBtn {
     background: #444;
     color: #eee;
-    position: absolute; /* Crucial for the escaping mechanic */
+    position: absolute; 
+    transition: left 0.1s ease, top 0.1s ease; 
 }
