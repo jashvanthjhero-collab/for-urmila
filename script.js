@@ -2,35 +2,54 @@ const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 const questionText = document.querySelector('.question');
 
-// Function to move the "No" button to a random position
+// Function to safely move the button within viewable boundaries
 function moveNoButton() {
-    // Calculate max available width and height inside the browser window
-    const maxX = window.innerWidth - noBtn.offsetWidth - 40;
-    const maxY = window.innerHeight - noBtn.offsetHeight - 40;
-    
-    // Generate random coordinates within boundaries
-    const randomX = Math.floor(Math.random() * Math.max(maxX, 1));
-    const randomY = Math.floor(Math.random() * Math.max(maxY, 1));
-    
-    // Teleport the button using fixed positioning
+    // Get button dimensions
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    // Define a safe padding from the screen edges (in pixels)
+    const padding = 20;
+
+    // Calculate maximum safe coordinates (restricting to visible screen)
+    const maxX = window.innerWidth - btnWidth - padding;
+    const maxY = window.innerHeight - btnHeight - padding;
+
+    // Generate random coordinates starting at least from the padding offset
+    // Math.max ensures values never drop below the minimum padding bounds
+    const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+    const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+    // Clamp coordinates to make absolutely sure it never leaves the screen
+    const finalX = Math.max(padding, Math.min(randomX, maxX));
+    const finalY = Math.max(padding, Math.min(randomY, maxY));
+
+    // Instantly teleport the button using fixed positioning
     noBtn.style.position = 'fixed';
-    noBtn.style.left = `${randomX}px`;
-    noBtn.style.top = `${randomY}px`;
+    noBtn.style.left = `${finalX}px`;
+    noBtn.style.top = `${finalY}px`;
 }
 
-// 1. If they try to move the mouse cursor over it (Desktop PC)
+/* MOBILE PHONE FIX: 'touchstart' triggers the instant a finger hits the screen, 
+   moving the button before the mobile browser can register a click/tap event. */
+noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevents phone zoom/double-tap bugs
+    moveNoButton();
+});
+
+/* DESKTOP FIX: Moves the button as soon as the mouse cursor hovers near it */
 noBtn.addEventListener('mouseover', moveNoButton);
 
-// 2. If they manage to tap it quickly or use a touchscreen phone
+// Final fallback if they somehow bypass the listeners
 noBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // Stop any default action
+    e.preventDefault();
     moveNoButton();
 });
 
 // What happens when they click Yes!
 yesBtn.addEventListener('click', () => {
     questionText.innerHTML = "Yay! I knew it! 💖✨";
-    noBtn.style.display = 'none'; // Hide the No button permanently
+    noBtn.style.display = 'none'; 
     yesBtn.style.transform = 'scale(1.4)';
     yesBtn.disabled = true;
 });
