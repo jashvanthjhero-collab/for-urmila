@@ -73,10 +73,11 @@ button {
     box-shadow: 0 0 15px #ff69b4;
 }
 
-/* CRUCIAL: Absolute positioning lets JavaScript move this button anywhere */
+/* Clear, safe mobile button styles */
 #noBtn {
     background: #444;
     color: #eee;
-    position: absolute; 
-    transition: left 0.1s ease, top 0.1s ease; 
+    position: fixed; 
+    touch-action: none; /* Prevents phone zoom/drag bugs on Chrome */
+    transition: left 0.05s ease-in-out, top 0.05s ease-in-out; 
 }
