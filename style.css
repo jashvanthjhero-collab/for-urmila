@@ -49,12 +49,12 @@ canvas {
     margin-bottom: 30px;
 }
 
+/* This flex layout keeps the buttons side-by-side cleanly */
 .btn-group {
-    position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 30px;
-    height: 60px;
 }
 
 button {
@@ -73,11 +73,10 @@ button {
     box-shadow: 0 0 15px #ff69b4;
 }
 
-/* Clear, safe mobile button styles */
+/* Notice position is NOT fixed here; it stays normal until touched */
 #noBtn {
     background: #444;
     color: #eee;
-    position: fixed; 
-    touch-action: none; /* Prevents phone zoom/drag bugs on Chrome */
-    transition: left 0.05s ease-in-out, top 0.05s ease-in-out; 
+    touch-action: none; 
+    transition: left 0.1s ease, top 0.1s ease; 
 }
