@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050505;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Background layers mimicking the image canvas logic */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none; /* Allows clicking through the canvas to buttons */
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.2);
+    z-index: 10;
+    max-width: 90%;
+}
+
+.confession-text {
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #ff69b4;
+}
+
+.question {
+    color: #ddd;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.btn-group {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    height: 60px;
+}
+
+button {
+    padding: 12px 35px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#yesBtn {
+    background: #ff69b4;
+    color: white;
+    box-shadow: 0 0 15px #ff69b4;
+}
+
+#noBtn {
+    background: #444;
+    color: #eee;
+    position: absolute; /* Crucial for the escaping mechanic */
+}
