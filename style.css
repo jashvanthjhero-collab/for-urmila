@@ -27,29 +27,29 @@ canvas {
 .container {
     text-align: center;
     background: rgba(255, 255, 255, 0.05);
-    padding: 40px;
+    padding: 40px 30px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 30px rgba(255, 105, 180, 0.2);
     z-index: 10;
-    max-width: 90%;
+    width: 90%;
+    max-width: 450px;
 }
 
 .confession-text {
     color: #fff;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 10px;
     text-shadow: 0 0 10px #ff69b4;
 }
 
 .question {
     color: #ddd;
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+    font-size: 1.3rem;
+    margin-bottom: 25px;
 }
 
-/* This flex layout keeps the buttons side-by-side cleanly */
 .btn-group {
     display: flex;
     justify-content: center;
@@ -64,19 +64,72 @@ button {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
-#yesBtn {
+#yesBtn, #submitBtn {
     background: #ff69b4;
     color: white;
     box-shadow: 0 0 15px #ff69b4;
 }
 
-/* Notice position is NOT fixed here; it stays normal until touched */
+#yesBtn:hover, #submitBtn:hover {
+    transform: scale(1.05);
+    background: #ff4da6;
+}
+
 #noBtn {
     background: #444;
     color: #eee;
     touch-action: none; 
     transition: left 0.1s ease, top 0.1s ease; 
+}
+
+/* New Form Container Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    color: #fff;
+    font-size: 1.1rem;
+    padding-left: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: #ff69b4;
+    box-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
+}
+
+/* Style adjustment specifically for the calendar picker dropdown icon on Chrome mobile */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+#submitBtn {
+    width: 100%;
+    margin-top: 10px;
 }
